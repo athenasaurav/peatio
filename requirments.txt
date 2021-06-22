@@ -1,0 +1,6 @@
+requests
+python-http-client
+python-binance
+schedule
+ray
+secure-smtplib
