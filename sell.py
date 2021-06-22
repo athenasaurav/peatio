@@ -55,6 +55,7 @@ def sell(SELL_ID):
             data = json.loads(conn.getresponse().read().decode("utf-8"))
             # print(data)
             # SELL_ID.append(data['id'])
+            time.sleep(0.1)
             key_to_lookup = 'id'
             if key_to_lookup in data:
                 print("Key exists")
@@ -85,6 +86,7 @@ def sell(SELL_ID):
                     conn.request("POST", "/api/v2/peatio/market/orders", sell_payload, headers)
                     data = json.loads(conn.getresponse().read().decode("utf-8"))
                     SELL_ID.append(data['id'])
+                    time.sleep(0.1)
                 except Exception as e:
                     print("an exception occured - {}".format(e))
                     message = """\
