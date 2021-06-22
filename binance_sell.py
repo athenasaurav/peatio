@@ -44,6 +44,7 @@ def binance_sell(SELL_ID):
             conn.request("GET", "/api/v2/peatio/market/orders/{}".format(SELL_ID[i]), sell_payload, headers)
             data = json.loads(conn.getresponse().read().decode("utf-8"))
             # print(data)
+            time.sleep(0.1)
             try:
                 if data['trades_count'] == 1:
                     try:
@@ -53,6 +54,7 @@ def binance_sell(SELL_ID):
                         print(quantity)
                         binance_order = client.order_market_buy(symbol=symbol, quantity=quantity)
                         print(binance_order)
+                        time.sleep(0.1)
                     except Exception as e:
                         print("an exception occured - {}".format(e))
                         message = """\
