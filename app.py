@@ -1,6 +1,7 @@
 import hmac
 import hashlib 
 import binascii
+import http.client
 import requests
 import time
 import http.client
@@ -26,6 +27,8 @@ from cancel_sell import cancel_sell
 ray.init()
 BUY_ID = []
 SELL_ID = []
+ASKS = [] 
+BIDS = []
 BUY_ID_1= clear_buy.remote(BUY_ID)
 SELL_ID_1= clear_sell.remote(SELL_ID)
 SELL_ID, BUY_ID = ray.get([SELL_ID_1, BUY_ID_1])
@@ -60,8 +63,23 @@ def balance():
     BUY_ID, SELL_ID = ray.get([BUY_ID_1, SELL_ID_1])
 
 def clear():
-    global BUY_ID, SELL_ID
-    if len(BUY_ID) !=config.NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK or len(SELL_ID) != config.NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK:
+    global ASKS, BIDS, BUY_ID, SELL_ID
+    api_key = '3df0aa7f11e5f384'
+    secret = 'b0fe5cb1bc8bccfd56259861ef310d49' 
+    nonce = int(time.time() * 1000)
+    byte_key = bytes(secret, 'UTF-8')
+    message = (str(nonce) + api_key).encode()
+    signature = hmac.new(byte_key, message, hashlib.sha256).hexdigest()
+    clear_payload = {}
+    headers = {
+    'X-Auth-Apikey': api_key,
+    'X-Auth-Nonce': nonce,
+    'X-Auth-Signature': signature
+    }
+    conn = http.client.HTTPConnection("trade.cryptobarter.net")
+    conn.request("GET", "/api/v2/peatio/market/orders?state=wait",clear_payload, headers)
+    total_bids_asks = json.loads(conn.getresponse().read().decode("utf-8"))
+    if len(total_bids_asks) > (config.NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK*2):
         try:
             BUY_ID_1= clear_buy.remote(BUY_ID)
             SELL_ID_1= clear_sell.remote(SELL_ID)
@@ -76,7 +94,7 @@ def clear():
 schedule.every(config.REFRESH_TIME).seconds.do(job)
 schedule.every(config.REFRESH_TIME_JOB1).seconds.do(job1)
 schedule.every(config.REFRESH_TIME_BALANCE).seconds.do(balance)
-schedule.every(180).seconds.do(clear)
+schedule.every(config.REFRESH_TIME_CLEAR).seconds.do(clear)
 
 while True:
     schedule.run_pending()
