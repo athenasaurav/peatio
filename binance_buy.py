@@ -13,6 +13,7 @@ import random
 import json
 import ray
 import smtplib, ssl
+
 @ray.remote
 def binance_buy(BUY_ID):
     port = 587  # For starttls
@@ -45,6 +46,7 @@ def binance_buy(BUY_ID):
             conn.request("GET", "/api/v2/peatio/market/orders/{}".format(BUY_ID[i]), buy_payload, headers)
             data = json.loads(conn.getresponse().read().decode("utf-8"))
             # print(data)
+            time.sleep(0.1)
             try:
                 if data['trades_count'] == 1:
                     try:
@@ -55,6 +57,7 @@ def binance_buy(BUY_ID):
                         binance_order = client.order_market_sell(symbol=symbol, quantity=quantity)
                         print("binance SELL order is")
                         print(binance_order)
+                        time.sleep(0.1)
                     except Exception as e:
                         print("an exception occured - {}".format(e))
                         message = """\
@@ -68,6 +71,7 @@ def binance_buy(BUY_ID):
                             server.ehlo()  # Can be omitted
                             server.login(sender_email, password)
                             server.sendmail(sender_email, receiver_email, message)
+                        
                 else:
                     pass
             except Exception as e:
