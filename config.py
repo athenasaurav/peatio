@@ -35,9 +35,9 @@ BUY_PRICE_DECREASE_PERCET = 0.995
 SELL_PRICE_INCREASE_PERCET = 1.005
 
 ##Email setting for low Bianance Balance
-sender_email = "prescientautomation01@gmail.com"
-receiver_email = "ku.saurav@gmail.com"
-password = "sauravaman07"
+sender_email = "tradingbotlogs@gmail.com"
+receiver_email = "Kismatwala1@gmail.com", "ku.saurav@gmail.com"
+password = "Aut07r@d3"
 
 # Currency Pair to Moniter on Binance
 BINANCE_ASSET_TO_CHECK_1 = 'BTC'
