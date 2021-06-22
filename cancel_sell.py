@@ -50,6 +50,7 @@ def cancel_sell(SELL_ID):
             print("Sell order getting cancelled {}".format(SELL_ID[i]))
             conn.request("POST", "/api/v2/peatio/market/orders/{}/cancel".format(SELL_ID[i]), cancel_payload, headers)
             data = json.loads(conn.getresponse().read().decode("utf-8"))
+            time.sleep(0.1)
             try:
                 api_key = config.PEATIO_API_KEY
                 secret = config.PEATIO_API_SECRET
@@ -74,6 +75,7 @@ def cancel_sell(SELL_ID):
                 conn.request("POST", "/api/v2/peatio/market/orders", sell_payload, headers)
                 data = json.loads(conn.getresponse().read().decode("utf-8"))
                 # print(data)
+                time.sleep(0.1)
                 key_to_lookup = 'id'
                 if key_to_lookup in data:
                     print("Key exists")
@@ -104,6 +106,7 @@ def cancel_sell(SELL_ID):
                         conn.request("POST", "/api/v2/peatio/market/orders", sell_payload, headers)
                         data = json.loads(conn.getresponse().read().decode("utf-8"))
                         SELL_ID_NEW.append(data['id'])
+                        time.sleep(0.1)
                     except Exception as e:
                         print("an exception occured - {}".format(e))
                         message = """\
