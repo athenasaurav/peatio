@@ -17,8 +17,8 @@ REFRESH_TIME = 5
 REFRESH_TIME_JOB1 = 5
 
 #   Number of Bids and Asks data to be fetched from Binance. 
-#   If the number is 10, 10 Best Bids and 10 Sell Bids will be fetched from Biannce
-NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK = 10
+#   If the number is 15, 15 Best Bids and 15 Sell Bids will be fetched from Biannce
+NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK = 15
 
 
 # We will select random values between MIN_ORDER_SIZE & MAX_ORDER_SIZE
@@ -44,4 +44,4 @@ BINANCE_ASSET_TO_CHECK_1 = 'BTC'
 BINANCE_ASSET_TO_CHECK_2 = 'USDT'
 
 # Refresh time to check Balance on Binance and report Low Balance via Email. Time in Seconds
-REFRESH_TIME_BALANCE = 100
+REFRESH_TIME_BALANCE = 3600
