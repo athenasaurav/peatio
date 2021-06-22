@@ -45,3 +45,6 @@ BINANCE_ASSET_TO_CHECK_2 = 'USDT'
 
 # Refresh time to check Balance on Binance and report Low Balance via Email. Time in Seconds
 REFRESH_TIME_BALANCE = 3600
+
+# Refresh time to check PEATIO active buy + sell orders and if found more than twice of NUMBER_OF_ORDER_FETCH_FROM_BINANCE_ORDER_BOOK, cancel all. Time in Seconds
+REFRESH_TIME_CLEAR = 5
