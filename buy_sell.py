@@ -47,6 +47,7 @@ def buy_sell():
     # print(data)
     print("binance asks {}".format(depth['asks'][0][0]))
     print("exchange asks {}".format(data['asks'][0]['price']))
+    time.sleep(0.1)
     if depth['asks'][0][0] > data['asks'][0]['price']:
         print(" Cant Place buy Order, already a Sell order Present to nullify")
     else:
@@ -79,6 +80,7 @@ def buy_sell():
             # print(data)
             print("BUY data for CHART is :")
             print(data)
+            time.sleep(0.1)
             try:
                 #sell logic
                 api_key = config.PEATIO_API_KEY
@@ -99,6 +101,7 @@ def buy_sell():
                 data = json.loads(conn.getresponse().read().decode("utf-8"))
                 print("SELL data for CHART is :")
                 print(data)
+                time.sleep(0.1)
             except Exception as e:
                 print("an exception occured - {}".format(e))
                 message = """\
