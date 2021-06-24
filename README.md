@@ -96,6 +96,10 @@ NOTE: we have deployed with a name ```Bot```.
 
 To kill the screen, run command ```tmux kill-session```
 
+For ex : If we want to stop a bot training pair ETHUSDT and the bot name in Tmux is ETHBOT then run this command ```tmux kill-session -t ETHBOT```
+
 To see the list of all the session, run command ```tmux list-sessions```
+
+
 
 You can check the Tmux commands cheatsheet [here](https://github.com/athenasaurav/peatio_binance/blob/main/tmux.md)
